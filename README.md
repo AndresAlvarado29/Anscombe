@@ -63,8 +63,8 @@ Los trece conjuntos de datos fueron etiquetados de la siguiente manera:
    - wide_lines
    - x_shape
 
+Bibliografia
 
-
-
-
-
+1. [Cuarteto de Anscombe - Wikipedia](https://es.wikipedia.org/wiki/Cuarteto_de_Anscombe)
+2. [Cuarteto de Anscombe - Azeotropes](https://azeotropes.wordpress.com/2020/10/31/cuarteto-de-anscombe/)
+3. [Datasaurus Dozen - Wikipedia](https://en.wikipedia.org/wiki/Datasaurus_dozen)
