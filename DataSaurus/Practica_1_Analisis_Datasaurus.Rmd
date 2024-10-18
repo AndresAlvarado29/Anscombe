@@ -1,0 +1,90 @@
+![](https://camo.githubusercontent.com/bce3f589a277df07cfe197166181b21d5f66af1e1efdd8f869567c8222d95cf4/68747470733a2f2f75706c6f61642e77696b696d656469612e6f72672f77696b6970656469612f636f6d6d6f6e732f622f62302f4c6f676f5f556e6976657273696461645f506f6c6974254333254139636e6963615f53616c657369616e615f64656c5f45637561646f722e706e67)
+
+---
+title: "Practica_1_Analisis_Datasaurus"
+author: "Andres"
+date: "2024-09-23"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Practica DataSaurus
+
+Nombre: Nixon Andres Alvarado Calle
+
+Materia: Mineria de Datos
+
+En esta practica se va a realizar varias actividades para conocer mas sobre el lenguaje R, a continuacion las actividades que se realizaron:
+
+Este conjunto de datos fue creado por Alberto Cairo y presentado en el proyecto Datasaurus, desarrollado por Justin Matejka y George Fitzmaurice en 2017. El propósito del dataset es demostrar la relevancia de visualizar los datos, más allá de simplemente analizar las estadísticas descriptivas.
+
+1.  Cargamos las librerias:
+
+```{r}
+library(datasauRus)
+library(dplyr)
+library(ggplot2)
+```
+
+2.  Mostramos un resumen estadistico del dataset:
+
+```{r}
+datasaurus_dozen %>%
+  group_by(dataset) %>%
+  summarize( mean_x = mean(x),
+             mean_y = mean(y),
+             std_dev_x = sd(x),
+             std_dev_y = sd(y),
+             corr_x_y = cor(x,y))
+```
+
+3.  Graficamos
+
+```{r}
+ggplot(datasaurus_dozen,aes(x=x,y=y,colour=dataset))+geom_point()+theme_void()+theme(legend.position = "none")+ facet_wrap(~dataset, ncol=3)
+```
+
+4.  Filtramos los datos segun lo entregado por el docente en este cado v_lines
+
+```{r}
+dfgrupo<-datasaurus_dozen %>%
+  filter(dataset=="v_lines")
+dfgrupo
+```
+
+5.  Calcular la regresion de grupo v_lines
+
+```{r}
+#Calcular la regresión lineal
+regresion <- lm(y~x,data=dfgrupo)
+#Mostrar el resumen de la regresion
+summary(regresion)
+```
+
+6.  graficamos la regresion
+
+```{r}
+#graficamos los puntos y la linea de regresión
+plot(dfgrupo$x, dfgrupo$y, xlab='x', ylab='y', col='darkgreen',pch = 16)
+abline(regresion, col='orange')
+```
+
+7.  graficamos la regresion con otra herramienta
+
+```{r}
+# Graficar los puntos y la línea de regresión usando ggplot2 y geom_smooth
+ggplot(dfgrupo, aes(x = x, y = y)) +
+  geom_point(color = 'lightblue', size =4 ) +  # Puntos en color azul y tamaño 2
+  geom_smooth(method = 'lm', color = 'purple', se = FALSE,size=2) +  # Línea de regresión en color rojo
+  labs(title = 'Regresión Lineal', x = 'x', y = 'y') +  # Títulos y etiquetas de los ejes
+  theme_minimal()  # Tema para mejorar la apariencia
+```
+
+8.  Conclusión
+
+El conjunto DataSaurus, creado por Alberto Cairo y presentado en el proyecto de Justin Matejka y George Fitzmaurice, demuestra que diferentes distribuciones de datos pueden tener estadísticas similares, pero presentar formas visuales completamente distintas. Al enfocarnos en el subconjunto de datos `v_lines`, realizamos un análisis de regresión lineal y graficamos los resultados, tanto utilizando funciones base de R como con el paquete `ggplot2`.
+
+El uso de `ggplot2` nos permitió generar visualizaciones más estéticas y claras, lo que subraya el poder de la visualización en la minería de datos. Este enfoque no solo facilita la identificación de patrones y relaciones en los datos, sino que también nos ayuda a comunicar nuestros hallazgos de manera más efectiva.
